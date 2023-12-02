@@ -6,9 +6,24 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 	"strings"
 	"time"
 )
+
+func WriteToFile(filename string, contents []byte) {
+	err := os.MkdirAll(filepath.Dir(filename), os.ModePerm)
+	if err != nil {
+		log.Fatalf("making directory: %s", err)
+	}
+	err = os.WriteFile(filename, contents, os.FileMode(0644))
+	if err != nil {
+		log.Fatalf("writing file: %s", err)
+	}
+
+	log.Printf("Wrote to File: %s", filename)
+}
 
 func GetWithAOCCookie(url string, cookie string) []byte {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)

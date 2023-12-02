@@ -25,11 +25,14 @@ func buildChallenges() ChallengesMap {
 func getInput(day int, year int, inputs_path string, cookie string) string {
 	log.Printf("Fetching for day %d, year %d", day, year)
 
-	url := fmt.Sprintf("https://adventofcode.com/%d/day/%d/input", year, day)
-	raw_input := GetWithAOCCookie(url, cookie)
+	filename := filepath.Join(inputs_path, fmt.Sprintf("inputs/%d/day_%02d", year, day))
 
-	filename := filepath.Join(inputs_path, fmt.Sprintf("%d/%d", year, day))
-	return "123\n234"
+	fmt.Println(inputs_path, filename)
+	url := fmt.Sprintf("https://adventofcode.com/%d/day/%d/input", year, day)
+	body := GetWithAOCCookie(url, cookie)
+	WriteToFile(filename, body)
+
+	return string(body)
 }
 
 func main() {
@@ -41,7 +44,7 @@ func main() {
 	cookie := "123213"
 	inputs_path_raw, err := exec.Command("git", "rev-parse", "--show-toplevel").Output()
 	if err != nil {
-		panic(fmt.Sprintf("Unable to find the path to inputs folder", err))
+		panic(fmt.Sprintf("Unable to find the path to inputs folder %s", err))
 	}
 	inputs_path := strings.TrimSpace(string(inputs_path_raw))
 
