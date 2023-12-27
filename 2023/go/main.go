@@ -12,6 +12,7 @@ import (
 	"github.com/TGDivy/advent-of-code/2023/go/day1"
 	"github.com/TGDivy/advent-of-code/2023/go/day2"
 	"github.com/TGDivy/advent-of-code/2023/go/day3"
+	"github.com/TGDivy/advent-of-code/2023/go/day4"
 )
 
 type (
@@ -24,6 +25,7 @@ func buildChallenges() ChallengesMap {
 	cmap[1] = day1.Day1
 	cmap[2] = day2.Main
 	cmap[3] = day3.Main
+	cmap[4] = day4.Main
 	return cmap
 }
 
@@ -72,6 +74,6 @@ func main() {
 	}
 
 	raw_input := getInput(*day, *year, inputs_path, *cookie, *force_fetch)
-
+	raw_input = strings.TrimSpace(raw_input)
 	function(raw_input)
 }
