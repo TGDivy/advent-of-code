@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/TGDivy/advent-of-code/2023/go/day1"
+	"github.com/TGDivy/advent-of-code/2023/go/day2"
 )
 
 type (
@@ -20,7 +21,7 @@ type (
 func buildChallenges() ChallengesMap {
 	cmap := make(ChallengesMap)
 	cmap[1] = day1.Day1
-
+	cmap[2] = day2.Main
 	return cmap
 }
 
