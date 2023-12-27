@@ -41,7 +41,7 @@ func parseCard(cardString string) ScratchCard {
 	return card
 }
 
-func cardPoints(card ScratchCard) int {
+func cardMatches(card ScratchCard) int {
 	count := 0
 	for _, num := range card.YourNumbers {
 		for _, num2 := range card.WinningNumbers {
@@ -52,6 +52,11 @@ func cardPoints(card ScratchCard) int {
 		}
 	}
 
+	return count
+}
+
+func cardPoints(card ScratchCard) int {
+	count := cardMatches(card)
 	if count == 0 {
 		return 0
 	}
@@ -60,7 +65,24 @@ func cardPoints(card ScratchCard) int {
 }
 
 func findTotalCards(cards []ScratchCard) int {
+	l := len(cards)
+
+	m := make(map[int]int)
+	for i := 0; i < l; i++ {
+		m[i] = 1
+	}
+
+	for i := 0; i < l; i++ {
+		count := cardMatches(cards[i])
+		for j := 1; j <= count && (i+j) < l; j++ {
+			m[i+j] += m[i]
+		}
+	}
+	// fmt.Println(m)
 	total := 0
+	for _, v := range m {
+		total += v
+	}
 	return total
 }
 
