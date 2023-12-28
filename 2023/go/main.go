@@ -16,6 +16,7 @@ import (
 	"github.com/TGDivy/advent-of-code/2023/go/day5"
 	"github.com/TGDivy/advent-of-code/2023/go/day6"
 	"github.com/TGDivy/advent-of-code/2023/go/day7"
+	"github.com/TGDivy/advent-of-code/2023/go/day8"
 )
 
 type (
@@ -32,6 +33,7 @@ func buildChallenges() ChallengesMap {
 	cmap[5] = day5.Main
 	cmap[6] = day6.Main
 	cmap[7] = day7.Main
+	cmap[8] = day8.Main
 	return cmap
 }
 
