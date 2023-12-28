@@ -20,8 +20,8 @@ type CategoryMapping struct {
 }
 
 type Almanac struct {
-	seeds        []int
 	categoryMaps map[string]CategoryMapping
+	seeds        []int
 }
 
 func parse(raw_input string) Almanac {
@@ -58,6 +58,7 @@ func parse(raw_input string) Almanac {
 		maps[categoryMap.from] = categoryMap
 	}
 
+	almanac.categoryMaps = maps
 	return almanac
 }
 
@@ -75,7 +76,12 @@ func rec(alamanc Almanac, categoryMap CategoryMapping, end string, seed int) int
 	if categoryMap.to == end {
 		return newValue
 	}
-	return rec(alamanc, alamanc.categoryMaps[categoryMap.to], end, newValue)
+	fmt.Println(categoryMap.to, categoryMap.from)
+	categoryMapNew, ok := alamanc.categoryMaps[categoryMap.to]
+	if !ok {
+		return 0
+	}
+	return rec(alamanc, categoryMapNew, end, newValue)
 }
 
 func minCategory(alamanc Almanac) int {
@@ -95,10 +101,7 @@ func minCategory(alamanc Almanac) int {
 }
 
 func Main(raw_input string) {
-	fmt.Println(raw_input)
-
 	almanac := parse(raw_input)
-
 	s1 := minCategory(almanac)
 
 	fmt.Println("Solution: ")
