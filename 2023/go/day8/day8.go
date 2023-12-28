@@ -41,10 +41,32 @@ func parseInput(raw_input string) Map {
 	return dir_map
 }
 
+func FindEnd(dir_map Map) int {
+	steps := 0
+
+	current_node, end_node := dir_map.Network["AAA"], "ZZZ"
+	directionRunes := []rune(dir_map.Directions)
+	for current_node.Value != end_node {
+		direction := directionRunes[steps%len(directionRunes)]
+
+		if direction == rune('R') {
+			current_node = dir_map.Network[current_node.Right]
+		} else {
+			current_node = dir_map.Network[current_node.Left]
+		}
+
+		steps += 1
+	}
+
+	return steps
+}
+
 func Main(raw_input string) {
 	dir_map := parseInput(raw_input)
-	fmt.Println(dir_map)
+
+	s1 := FindEnd(dir_map)
+
 	fmt.Println("Solution:")
-	fmt.Println("S1: ")
+	fmt.Println("S1: ", s1)
 	fmt.Println("S2: ")
 }
