@@ -42,7 +42,24 @@ func parseData(raw_input string) []Race {
 	return races
 }
 
+func possibleWaysToWin(race Race) int {
+	count := 0
+
+	for i := 1; i < race.Time; i++ {
+		dist := (race.Time - i) * i
+		if dist > race.Distance {
+			count += 1
+		}
+	}
+	return count
+}
+
 func Main(raw_input string) {
 	races := parseData(raw_input)
-	fmt.Println(races)
+	m1 := 1
+	for _, race := range races {
+		m1 *= possibleWaysToWin(race)
+	}
+	fmt.Println("Solution: ")
+	fmt.Print("S1: ", m1)
 }
